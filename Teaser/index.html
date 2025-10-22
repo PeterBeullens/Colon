@@ -1,242 +1,620 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hotel Colón — Muchas calles, una experiencia</title>
-  <style>
-    :root{ --linen:#e6dfd2; --tosca:#d2c2a8; --terracotta:#b66333; --olive:#56623b; --charcoal:#3a3b34; --iroko:#4b2f1f; --r:20px; }
-    *{box-sizing:border-box} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; color:var(--charcoal); background:var(--linen)}
-    h1,h2,h3,h4{font-family:'Playfair Display', ui-serif, Georgia, 'Times New Roman', Times, serif; margin:0 0 .5rem}
-    a{color:inherit} .container{max-width:1120px;margin:0 auto;padding:0 24px}
-    .header{position:sticky;top:0;z-index:10;backdrop-filter:blur(6px);background:rgba(230,223,210,.75);border-bottom:1px solid color-mix(in oklab, var(--tosca) 60%, transparent)}
-    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-    nav{display:none;gap:18px} .brand{font-weight:600;letter-spacing:.3px;font-size:20px}
-    .cta{background:var(--charcoal);color:var(--linen);padding:8px 14px;border-radius:999px;text-decoration:none}
-    .lang{display:flex;align-items:center;gap:4px;border:1px solid #0001;border-color:color-mix(in oklab, var(--tosca) 60%, transparent);border-radius:999px;padding:2px 6px;background:#fff8}
-    .lang button{border:0;background:none;padding:6px 8px;border-radius:999px;cursor:pointer}
-    .lang .active{background:var(--terracotta);color:var(--linen)}
-    @media(min-width:768px){ nav{display:flex} .brand{font-size:24px} }
-    .hero{position:relative;overflow:hidden}
-    .hero-bg{position:absolute;inset:0;background:
-      radial-gradient(1200px 600px at 10% 10%, rgba(210,194,168,.55), transparent 60%),
-      radial-gradient(900px 500px at 90% 20%, rgba(182,99,51,.28), transparent 60%),
-      radial-gradient(800px 400px at 50% 120%, rgba(86,98,59,.18), transparent 60%),
-      linear-gradient(0deg,#efe8db,#efe8db)}
-    .hero-inner{position:relative;padding:96px 0 120px}
-    .kicker{font-size:12px;text-transform:uppercase;letter-spacing:.3em;color:var(--olive)}
-    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
-    .btn{display:inline-block;padding:12px 18px;border-radius:999px;text-decoration:none}
-    .btn-primary{background:var(--terracotta);color:var(--linen)} .btn-outline{border:1px solid color-mix(in oklab, var(--charcoal) 30%, transparent)}
-    .grid{display:grid;gap:24px}
-    @media(min-width:768px){.cols-3{grid-template-columns:repeat(3,1fr)} .cols-12{grid-template-columns:repeat(12,1fr)} .cols-2{grid-template-columns:repeat(2,1fr)}}
-    .card{background:#fffcc;border:1px solid color-mix(in oklab, var(--tosca) 60%, transparent);border-radius:var(--r);box-shadow:0 10px 30px rgba(58,59,52,.08)}
-    .card.pad{padding:24px}
-    .img{height:260px;border-radius:var(--r);background-position:center;background-size:cover}
-    .img.tall{height:340px}
-    section{padding:56px 0}
-    footer{border-top:1px solid color-mix(in oklab, var(--tosca) 60%, transparent);padding:20px 0}
-    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:50}
-    .lightbox img{max-width:92vw;max-height:86vh;border-radius:10px;box-shadow:0 10px 40px #0008}
-    .lightbox.show{display:flex}
-  </style>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-  <header class="header">
-    <div class="container header-inner">
-      <div class="brand">Hotel Colón</div>
-      <nav class="i18n" data-scope="top">
-        <a href="#concept" data-i18n="concept">Concepto</a>
-        <a href="#rooms" data-i18n="suites">Suites</a>
-        <a href="#dine" data-i18n="dine">Restaurante</a>
-        <a href="#cycling" data-i18n="cycling">Ciclismo</a>
-        <a href="#find" data-i18n="find">Ubicación</a>
-      </nav>
-      <div style="display:flex;align-items:center;gap:10px">
-        <div class="lang">
-          <button id="lang-es" class="active">ES</button>
-          <button id="lang-en">EN</button>
-          <button id="lang-nl">NL</button>
-        </div>
-        <a href="#waitlist" class="cta i18n" data-scope="top" data-i18n="preopening">Pre‑opening</a>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="hero-bg" aria-hidden="true"></div>
-      <div class="container hero-inner">
-        <div class="kicker i18n" data-scope="hero" data-i18n="kicker">Teulada • Calle Colón</div>
-        <h1 class="i18n" data-scope="root" data-i18n="tagline">Muchas calles, una experiencia.</h1>
-        <p class="i18n" data-scope="hero" data-i18n="lead">Un boutique “hotel sin muros”: duerme en la Calle Colón, desayuna a la vuelta de la esquina y cena en otra casa. Un barrio, un hotel.</p>
-        <div class="hero-actions">
-          <a href="#waitlist" class="btn btn-primary i18n" data-scope="hero" data-i18n="cta1">Únete a la lista de espera</a>
-          <a href="#concept" class="btn btn-outline i18n" data-scope="hero" data-i18n="cta2">Descubre el concepto</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="concept">
-      <div class="container grid cols-3">
-        <div class="card pad">
-          <h3 class="i18n" data-scope="pillars0" data-i18n="title">Muchas calles, un hotel</h3>
-          <p class="i18n" data-scope="pillars0" data-i18n="text">Dormir y desayunar en la Casa A; cenar en la Casa B — a 1 minuto a pie. Una sola marca, un solo concierge, una experiencia.</p>
-        </div>
-        <div class="card pad">
-          <h3 class="i18n" data-scope="pillars1" data-i18n="title">Lujo para ciclistas</h3>
-          <p class="i18n" data-scope="pillars1" data-i18n="text">Sala de bicicletas segura, zona de lavado y ajuste, desayuno para madrugadores. Rutas por la Marina Alta y salidas a Moraira.</p>
-        </div>
-        <div class="card pad">
-          <h3 class="i18n" data-scope="pillars2" data-i18n="title">Histórico y auténtico</h3>
-          <p class="i18n" data-scope="pillars2" data-i18n="text">Piedra tosca, baldosa de terracota, iroko oscuro y lino tejido. Confort moderno con alma local.</p>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container grid cols-12">
-        <figure class="img tall" style="grid-column:span 7; background-image:url('images/lobby1.png')" aria-label="Lobby Hotel Colón" onclick="openLightbox(this)"></figure>
-        <div class="card" style="grid-column:span 5; padding:24px; background:var(--charcoal); color:var(--linen)">
-          <div>
-            <p style="text-transform:uppercase;letter-spacing:.25em;opacity:.8" class="i18n" data-scope="welcome" data-i18n="title">Bienvenidos</p>
-            <h4 style="margin:.25rem 0 0">Hotel Colón</h4>
-            <p class="i18n" data-scope="welcome" data-i18n="text">Una bienvenida cálida y auténtica en el corazón de Teulada.</p>
-          </div>
-          <figure class="img" style="height:150px;margin-top:16px;background-image:url('images/lobby2.png')" aria-label="Entrada histórica" onclick="openLightbox(this)"></figure>
-        </div>
-      </div>
-    </section>
-
-    <section id="rooms">
-      <div class="container grid cols-2">
-        <div class="card">
-          <figure class="img tall" style="background-image:url('images/room1.png')" aria-label="Habitación twin" onclick="openLightbox(this)"></figure>
-          <div class="pad">
-            <h3 class="i18n" data-scope="rooms" data-i18n="title">Suites & Apartamentos</h3>
-            <p class="i18n" data-scope="rooms" data-i18n="text">Heritage Suites con balcón y Barrio Rooms silenciosas con ropa de lino. Entrada sin llave, Wi‑Fi rápido y camas excelentes.</p>
-          </div>
-        </div>
-        <div class="card">
-          <figure class="img tall" style="background-image:url('images/room2.png')" aria-label="Suite con kitchenette" onclick="openLightbox(this)"></figure>
-          <div class="pad">
-            <h3>Suite</h3>
-            <p>Balcón, zona de estar y kitchenette — ideal para estancias de varios días.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="dine">
-      <div class="container grid cols-2">
-        <div class="card">
-          <figure class="img tall" style="background-image:url('images/winebar.png')" aria-label="Wine bar" onclick="openLightbox(this)"></figure>
-          <div class="pad">
-            <h3 class="i18n" data-scope="dine" data-i18n="title">Restaurante Colón</h3>
-            <p class="i18n" data-scope="dine" data-i18n="text">Desayuno en la Casa A, cena en la Casa B. Producto de la Marina Alta, cocina mediterránea y mesa del chef con reserva.</p>
-          </div>
-        </div>
-        <div class="card">
-          <figure class="img tall" style="background-image:url('images/facade.png')" aria-label="Fachada del restaurante" onclick="openLightbox(this)"></figure>
-          <div class="pad">
-            <p class="i18n" data-scope="dine" data-i18n="note">A 1 minuto caminando por el centro histórico.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="cycling">
-      <div class="container grid cols-2">
-        <div class="card pad">
-          <h3 class="i18n" data-scope="cycling" data-i18n="title">Cycling & Care</h3>
-          <p class="i18n" data-scope="cycling" data-i18n="text">Todo para ciclistas: guardabicis con anclajes seguros, zona de lavado, herramientas, guiado por la zona, recuperación y espresso antes de la ruta.</p>
-          <ul style="margin:.6rem 0 0;padding-left:1rem;opacity:.85">
-            <li>Rutas personalizadas y guía local (bajo reserva)</li>
-            <li>Zona de estiramiento/relajación post‑ruta</li>
-            <li>Energía: espresso & snacks antes de salir</li>
-          </ul>
-        </div>
-        <figure class="img tall card" style="background-image:url('images/bikeroom.png')" aria-label="Sala de bicicletas" onclick="openLightbox(this)"></figure>
-      </div>
-    </section>
-
-    <section id="waitlist">
-      <div class="container">
-        <div class="card pad">
-          <h3 class="i18n" data-scope="wait" data-i18n="title">Lista de espera de pre‑apertura</h3>
-          <p class="i18n" data-scope="wait" data-i18n="text">Sé el primero en recibir tarifas de apertura e invitaciones a la soft‑opening.</p>
-          <form onsubmit="event.preventDefault(); alert('¡Gracias!');" class="grid" style="gap:12px;grid-template-columns:1fr; margin-top:12px">
-            <input type="text" placeholder="Nombre" class="i18n" data-scope="wait" data-i18n-attr="placeholder:name" style="padding:12px 14px;border-radius:12px;border:1px solid color-mix(in oklab, var(--tosca) 60%, transparent);background:#ffffffe6" />
-            <input type="email" placeholder="Correo" class="i18n" data-scope="wait" data-i18n-attr="placeholder:email" style="padding:12px 14px;border-radius:12px;border:1px solid color-mix(in oklab, var(--tosca) 60%, transparent);background:#ffffffe6" />
-            <button class="btn btn-primary i18n" data-scope="wait" data-i18n="btn" style="justify-self:start">Apuntarme</button>
-          </form>
-          <p style="opacity:.7;margin-top:6px" class="i18n" data-scope="wait" data-i18n="consent">Al enviar aceptas nuestra política de privacidad. Sólo enviamos noticias de Hotel Colón.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="find">
-      <div class="container grid cols-2">
-        <div class="card pad">
-          <h3 class="i18n" data-scope="map" data-i18n="title">Cómo llegar</h3>
-          <p class="i18n" data-scope="map" data-i18n="text">Calle Colón 11–13, Teulada, Alicante. Entre la estación y el casco antiguo.</p>
-          <a class="i18n" data-scope="map" data-i18n="open" target="_blank" rel="noreferrer" href="https://www.google.com/maps?q=Calle%20Col%C3%B3n%2011-13,%20Teulada">Abrir en Google Maps</a>
-        </div>
-        <div class="card" style="overflow:hidden">
-          <iframe title="mapa" width="100%" height="360" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Calle%20Col%C3%B3n%2011-13,%20Teulada&output=embed"></iframe>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-      <div style="opacity:.7;font-size:14px">© <span id="year"></span> Hotel Colón • Teulada</div>
-      <div style="opacity:.7;font-size:14px" class="i18n" data-scope="root" data-i18n="tagline">Muchas calles, una experiencia.</div>
-    </div>
-  </footer>
-
-  <div id="lightbox" class="lightbox" onclick="this.classList.remove('show')">
-    <img id="lightbox-img" alt="" />
-  </div>
-
-  <script>
-    const STR = {
-      es:{root:{tagline:'Muchas calles, una experiencia.'},top:{concept:'Concepto',suites:'Suites',dine:'Restaurante',cycling:'Ciclismo',find:'Ubicación',preopening:'Pre‑opening'},hero:{kicker:'Teulada • Calle Colón',lead:'Un boutique “hotel sin muros”: duerme en la Calle Colón, desayuna a la vuelta de la esquina y cena en otra casa. Un barrio, un hotel.',cta1:'Únete a la lista de espera',cta2:'Descubre el concepto'},pillars0:{title:'Muchas calles, un hotel',text:'Dormir y desayunar en la Casa A; cenar en la Casa B — a 1 minuto a pie. Una sola marca, un solo concierge, una experiencia.'},pillars1:{title:'Lujo para ciclistas',text:'Sala de bicicletas segura, zona de lavado y ajuste, desayuno para madrugadores. Rutas por la Marina Alta y salidas a Moraira.'},pillars2:{title:'Histórico y auténtico',text:'Piedra tosca, baldosa de terracota, iroko oscuro y lino tejido. Confort moderno con alma local.'},welcome:{title:'Bienvenidos',text:'Una bienvenida cálida y auténtica en el corazón de Teulada.'},rooms:{title:'Suites & Apartamentos',text:'Heritage Suites con balcón y Barrio Rooms silenciosas con ropa de lino. Entrada sin llave, Wi‑Fi rápido y camas excelentes.'},dine:{title:'Restaurante Colón',text:'Desayuno en la Casa A, cena en la Casa B. Producto de la Marina Alta, cocina mediterránea y mesa del chef con reserva.',note:'A 1 minuto caminando por el centro histórico.'},cycling:{title:'Cycling & Care',text:'Todo para ciclistas: guardabicis con anclajes seguros, zona de lavado, herramientas, guiado por la zona, recuperación y espresso antes de la ruta.'},wait:{title:'Lista de espera de pre‑apertura',text:'Sé el primero en recibir tarifas de apertura e invitaciones a la soft‑opening.',name:'Nombre',email:'Correo',btn:'Apuntarme',consent:'Al enviar aceptas nuestra política de privacidad. Sólo enviamos noticias de Hotel Colón.'},map:{title:'Cómo llegar',text:'Calle Colón 11–13, Teulada, Alicante. Entre la estación y el casco antiguo.',open:'Abrir en Google Maps'}},
-      en:{root:{tagline:'Many streets, one experience.'},top:{concept:'Concept',suites:'Suites',dine:'Restaurant',cycling:'Cycling',find:'Location',preopening:'Pre‑opening'},hero:{kicker:'Teulada • Historic quarter',lead:'A boutique “hotel without walls”: sleep on Calle Colón, breakfast around the corner and dine in another house. One neighbourhood, one hotel.',cta1:'Join the waitlist',cta2:'Discover the concept'},pillars0:{title:'Many streets, one hotel',text:'Sleep & breakfast in House A; dine in House B — just 1 minute on foot. One brand, one concierge, one experience.'},pillars1:{title:'Cyclist‑friendly luxury',text:'Secure bike room, wash & tune area, early‑rider breakfast. Routes across Marina Alta and coastal rides to Moraira.'},pillars2:{title:'Historic & authentic',text:'Tosca stone, terracotta tiles, dark iroko, woven linen. Modern comfort with local soul.'},welcome:{title:'Welcome',text:'A warm, authentic arrival in the heart of Teulada.'},rooms:{title:'Suites & Apartments',text:'Heritage Suites with balcony and quiet Barrio Rooms with linen blend. Keyless entry, fast Wi‑Fi and excellent beds.'},dine:{title:'Restaurante Colón',text:'Breakfast in House A, dinner in House B. Produce from Marina Alta, Mediterranean cuisine and a chef’s table by reservation.',note:"1 minute’s walk through the historic centre."},cycling:{title:'Cycling & Care',text:'Everything cyclists need: secure racks, wash area, tools, local guiding, recovery & espresso before the ride.'},wait:{title:'Pre‑opening waitlist',text:'Be first to access opening rates and soft‑opening invites.',name:'Name',email:'Email',btn:'Sign up',consent:'By submitting you agree to our privacy policy. We only send Hotel Colón news.'},map:{title:'Find us',text:'Calle Colón 11–13, Teulada, Alicante. Between the station and the old town.',open:'Open in Google Maps'}},
-      nl:{root:{tagline:'Veel straten, één ervaring.'},top:{concept:'Concept',suites:'Suites',dine:'Restaurant',cycling:'Fietsen',find:'Locatie',preopening:'Pre‑opening'},hero:{kicker:'Teulada • Historisch centrum',lead:'Een boutique “hotel zonder muren”: slapen in de Calle Colón, ontbijt om de hoek en diner in een ander huis. Eén wijk, één hotel.',cta1:'Schrijf je in',cta2:'Ontdek het concept'},pillars0:{title:'Veel straten, één hotel',text:'Slapen & ontbijt in Huis A; diner in Huis B — slechts 1 minuut lopen. Eén merk, één conciërge, één ervaring.'},pillars1:{title:'Luxe voor fietsers',text:'Beveiligde fietsruimte, was & tune hoek, early‑rider ontbijt. Routes door Marina Alta en naar Moraira.'},pillars2:{title:'Historisch & authentiek',text:'Tosca‑steen, terracotta, donker iroko en geweven linnen. Modern comfort met lokale ziel.'},welcome:{title:'Welkom',text:'Welkom in de warme authentieke omgeving.'},rooms:{title:'Suites & Appartementen',text:'Heritage Suites met balkon en stille Barrio Rooms met linnenmix. Keyless entry, snelle Wi‑Fi en uitstekende bedden.'},dine:{title:'Restaurante Colón',text:'Ontbijt in Huis A, diner in Huis B. Lokale producten, mediterrane keuken en chef’s table op reservering.',note:'1 minuut wandelen door het historisch centrum.'},cycling:{title:'Cycling & Care',text:'Alles voor fietsers: veilige rekken, waszone, tools, begeleiding, herstel en espresso voor de rit.'},wait:{title:'Pre‑opening wachtlijst',text:'Krijg als eerste toegang tot openingstarieven en soft‑opening uitnodigingen.',name:'Naam',email:'E‑mail',btn:'Aanmelden',consent:'Door te verzenden ga je akkoord met onze privacyverklaring. We mailen alleen over Hotel Colón.'},map:{title:'Zo vind je ons',text:'Calle Colón 11–13, Teulada, Alicante. Tussen station en oude stad.',open:'Open in Google Maps'}}
-    };
-
-    const setLang=(code)=>{
-      const dict=STR[code];
-      document.querySelectorAll('.i18n').forEach(el=>{
-        const scope=el.dataset.scope; const key=el.dataset.i18n; const attrSpec=el.dataset.i18nAttr;
-        let val=dict; if(scope){ scope.split('.').forEach(k=> val = val?.[k]); } if(key){ val = val?.[key]; }
-        if(typeof val==='string'){
-          if(attrSpec){ const [attr,prop]=attrSpec.split(':'); let src=dict; const p=(scope||'')+(prop?'.'+prop:''); if(p){ p.split('.').filter(Boolean).forEach(k=> src=src?.[k]); } el.setAttribute(attr, src||val); }
-          else { el.textContent = val; }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hotel Colón — Muchas calles, una experiencia</title>
+    <style>
+      :root {
+        --linen: #e6dfd2;
+        --tosca: #d2c2a8;
+        --terracotta: #b66333;
+        --olive: #56623b;
+        --charcoal: #3a3b34;
+        --iroko: #4b2f1f;
+        --r: 20px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        color: var(--charcoal);
+        background: var(--linen);
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", ui-serif, Georgia, "Times New Roman", Times, serif;
+        margin: 0 0 0.5rem;
+      }
+      a {
+        color: inherit;
+      }
+      .container {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(6px);
+        background: rgba(230, 223, 210, 0.75);
+        border-bottom: 1px solid color-mix(in oklab, var(--tosca) 60%, transparent);
+      }
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+      }
+      nav {
+        display: none;
+        gap: 18px;
+      }
+      .brand {
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        font-size: 20px;
+      }
+      .cta {
+        background: var(--charcoal);
+        color: var(--linen);
+        padding: 8px 14px;
+        border-radius: 999px;
+        text-decoration: none;
+      }
+      .lang {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        border: 1px solid #0001;
+        border-color: color-mix(in oklab, var(--tosca) 60%, transparent);
+        border-radius: 999px;
+        padding: 2px 6px;
+        background: #fff8;
+      }
+      .lang button {
+        border: 0;
+        background: none;
+        padding: 6px 8px;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+      .lang .active {
+        background: var(--terracotta);
+        color: var(--linen);
+      }
+      @media (min-width: 768px) {
+        nav {
+          display: flex;
         }
-      });
-      document.getElementById('lang-es').classList.toggle('active', code==='es');
-      document.getElementById('lang-en').classList.toggle('active', code==='en');
-      document.getElementById('lang-nl').classList.toggle('active', code==='nl');
-      document.documentElement.lang = code;
-    };
+        .brand {
+          font-size: 24px;
+        }
+      }
+      .hero {
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(1200px 600px at 10% 10%, rgba(210, 194, 168, 0.55), transparent 60%), radial-gradient(900px 500px at 90% 20%, rgba(182, 99, 51, 0.28), transparent 60%),
+          radial-gradient(800px 400px at 50% 120%, rgba(86, 98, 59, 0.18), transparent 60%), linear-gradient(0deg, #efe8db, #efe8db);
+      }
+      .hero-inner {
+        position: relative;
+        padding: 96px 0 120px;
+      }
+      .kicker {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: var(--olive);
+      }
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 18px;
+        border-radius: 999px;
+        text-decoration: none;
+      }
+      .btn-primary {
+        background: var(--terracotta);
+        color: var(--linen);
+      }
+      .btn-outline {
+        border: 1px solid color-mix(in oklab, var(--charcoal) 30%, transparent);
+      }
+      .grid {
+        display: grid;
+        gap: 24px;
+      }
+      @media (min-width: 768px) {
+        .cols-3 {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .cols-12 {
+          grid-template-columns: repeat(12, 1fr);
+        }
+        .cols-2 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .card {
+        background: #fffcc;
+        border: 1px solid color-mix(in oklab, var(--tosca) 60%, transparent);
+        border-radius: var(--r);
+        box-shadow: 0 10px 30px rgba(58, 59, 52, 0.08);
+      }
+      .pad {
+        padding: 5px 40px 0px 40px;
+      }
+      .img {
+        height: 260px;
+        border-radius: var(--r);
+        background-position: center;
+        background-size: cover;
+      }
+      .img.tall {
+        height: 340px;
+      }
+      section {
+        padding: 56px 0;
+      }
+      footer {
+        border-top: 1px solid color-mix(in oklab, var(--tosca) 60%, transparent);
+        padding: 20px 0;
+      }
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+      }
+      .lightbox img {
+        max-width: 92vw;
+        max-height: 86vh;
+        border-radius: 10px;
+        box-shadow: 0 10px 40px #0008;
+      }
+      .lightbox.show {
+        display: flex;
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header-inner">
+        <div class="brand">Hotel Colón</div>
+        <nav class="i18n" data-scope="top">
+          <a href="#concept" data-i18n="concept">Concepto</a>
+          <a href="#rooms" data-i18n="suites">Suites</a>
+          <a href="#dine" data-i18n="dine">Restaurantes</a>
+          <a href="#cycling" data-i18n="cycling">Ciclismo</a>
+          <a href="#find" data-i18n="find">Ubicación</a>
+        </nav>
+        <div style="display: flex; align-items: center; gap: 10px">
+          <div class="lang">
+            <button id="lang-es" class="active">ES</button>
+            <button id="lang-en">EN</button>
+            <button id="lang-nl">NL</button>
+          </div>
+          <a href="#waitlist" class="cta i18n" data-scope="top" data-i18n="preopening">Pre‑opening</a>
+        </div>
+      </div>
+    </header>
 
-    function openLightbox(fig){
-      const bg = fig.style.backgroundImage; const m = bg.match(/url\(["']?(.*?)["']?\)/); const src = m?m[1]:'';
-      const lb=document.getElementById('lightbox'); const img=document.getElementById('lightbox-img'); img.src=src; lb.classList.add('show');
-    }
-    window.openLightbox=openLightbox;
+    <main>
+      <section class="hero">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="container hero-inner">
+          <div class="kicker i18n" data-scope="hero" data-i18n="kicker">Teulada • Calle Colón</div>
+          <h1 class="i18n" data-scope="root" data-i18n="tagline">Muchas calles, una experiencia.</h1>
+          <p class="i18n" data-scope="hero" data-i18n="lead">Un boutique “hotel sin muros”: duerme en la Calle Colón, desayuna a la vuelta de la esquina y cena en otra casa. Un barrio, un hotel.</p>
+          <div class="hero-actions">
+            <a href="#waitlist" class="btn btn-primary i18n" data-scope="hero" data-i18n="cta1">Únete a la lista de espera</a>
+            <a href="#concept" class="btn btn-outline i18n" data-scope="hero" data-i18n="cta2">Descubre el concepto</a>
+          </div>
+        </div>
+      </section>
 
-    document.getElementById('year').textContent = new Date().getFullYear();
-    document.getElementById('lang-es').addEventListener('click',()=>setLang('es'));
-    document.getElementById('lang-en').addEventListener('click',()=>setLang('en'));
-    document.getElementById('lang-nl').addEventListener('click',()=>setLang('nl'));
-    setLang('es');
-  </script>
-</body>
+      <section id="concept">
+        <div class="container grid cols-3">
+          <div class="card pad">
+            <h3 class="i18n" data-scope="pillars0" data-i18n="title">Muchas calles, un hotel</h3>
+            <p class="i18n" data-scope="pillars0" data-i18n="text">Dormir y desayunar en la Casa A; cenar en la Casa B — a 1 minuto a pie. Una sola marca, un solo concierge, una experiencia.</p>
+          </div>
+          <div class="card pad">
+            <h3 class="i18n" data-scope="pillars1" data-i18n="title">Lujo para ciclistas</h3>
+            <p class="i18n" data-scope="pillars1" data-i18n="text">Sala de bicicletas segura, zona de lavado y ajuste, desayuno para madrugadores. Rutas por la Marina Alta y salidas a Moraira.</p>
+          </div>
+          <div class="card pad">
+            <h3 class="i18n" data-scope="pillars2" data-i18n="title">Histórico y auténtico</h3>
+            <p class="i18n" data-scope="pillars2" data-i18n="text">Piedra tosca, baldosa de terracota, iroko oscuro y lino tejido. Confort moderno con alma local.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container grid cols-12">
+          <figure class="img tall" style="grid-column: span 7; background-image: url('images/lobby1.png')" aria-label="Lobby Hotel Colón" onclick="openLightbox(this)"></figure>
+          <div class="card" style="grid-column: span 5; padding: 24px; background: var(--charcoal); color: var(--linen)">
+            <div>
+              <p style="text-transform: uppercase; letter-spacing: 0.25em; opacity: 0.8" class="i18n" data-scope="welcome" data-i18n="title">Bienvenidos</p>
+              <h4 style="margin: 0.25rem 0 0">Hotel Colón</h4>
+              <p class="i18n" data-scope="welcome" data-i18n="text">Una bienvenida cálida y auténtica en el corazón de Teulada.</p>
+            </div>
+            <figure class="img" style="height: 150px; margin-top: 16px; background-image: url('images/lobby2.png')" aria-label="Entrada histórica" onclick="openLightbox(this)"></figure>
+          </div>
+        </div>
+      </section>
+
+      <section id="rooms">
+        <div class="container grid cols-2">
+          <div class="card">
+            <figure class="img tall" style="background-image: url('images/room1.png')" aria-label="Habitación twin" onclick="openLightbox(this)"></figure>
+            <div class="pad">
+              <h3 class="i18n" data-scope="rooms" data-i18n="title">Habitaciones</h3>
+              <p class="i18n" data-scope="rooms" data-i18n="text">Habitaciones con balcón y Barrio Rooms silenciosas con ropa de lino. Entrada sin llave, Wi‑Fi rápido y camas excelentes.</p>
+            </div>
+          </div>
+          <div class="card">
+            <figure class="img tall" style="background-image: url('images/room2.png')" aria-label="Suite con kitchenette" onclick="openLightbox(this)"></figure>
+            <div class="pad">
+              <h3>Suites & Apartementos</h3>
+              <p>Balcón, zona de estar y kitchenette — ideal para estancias de varios días.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="dine">
+        <div class="container grid cols-2">
+          <div class="card">
+            <figure class="img tall" style="background-image: url('images/winebar.png')" aria-label="Wine bar" onclick="openLightbox(this)"></figure>
+            <div class="pad">
+              <h3 class="i18n" data-scope="dine" data-i18n="title">Restaurante de desayuno</h3>
+              <p class="i18n" data-scope="dine" data-i18n="text">Desayuno en la Casa A, cena en la Casa B. Producto de la Marina Alta, cocina mediterránea y mesa del chef con reserva.</p>
+            </div>
+          </div>
+          <div class="card">
+            <figure class="img tall" style="background-image: url('images/facade.png')" aria-label="Fachada del restaurante" onclick="openLightbox(this)"></figure>
+            <div class="pad">
+              <h3>Restaurante en la plaza</h3>
+              <p class="i18n" data-scope="dine" data-i18n="note">A 1 minuto caminando por el centro histórico.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="cycling">
+        <div class="container grid cols-2">
+          <div class="card pad">
+            <h3 class="i18n" data-scope="cycling" data-i18n="title">Cycling & Care</h3>
+            <p class="i18n" data-scope="cycling" data-i18n="text">Todo para ciclistas: guardabicis con anclajes seguros, zona de lavado, herramientas, guiado por la zona, recuperación y espresso antes de la ruta.</p>
+            <ul style="margin: 0.6rem 0 0; padding-left: 1rem; opacity: 0.85">
+              <li>Rutas personalizadas y guía local (bajo reserva)</li>
+              <li>Zona de estiramiento/relajación post‑ruta</li>
+              <li>Energía: espresso & snacks antes de salir</li>
+            </ul>
+          </div>
+          <figure class="img tall card" style="background-image: url('images/bikeroom.png')" aria-label="Sala de bicicletas" onclick="openLightbox(this)"></figure>
+        </div>
+      </section>
+
+      <section id="waitlist">
+        <div class="container">
+          <div class="card pad">
+            <h3 class="i18n" data-scope="wait" data-i18n="title">Lista de espera de pre‑apertura</h3>
+            <p class="i18n" data-scope="wait" data-i18n="text">Sé el primero en recibir tarifas de apertura e invitaciones a la soft‑opening.</p>
+            <form onsubmit="event.preventDefault(); alert('¡Gracias!');" class="grid" style="gap: 12px; grid-template-columns: 1fr; margin-top: 12px">
+              <input
+                type="text"
+                placeholder="Nombre"
+                class="i18n"
+                data-scope="wait"
+                data-i18n-attr="placeholder:name"
+                style="padding: 12px 14px; border-radius: 12px; border: 1px solid color-mix(in oklab, var(--tosca) 60%, transparent); background: #ffffffe6"
+              />
+              <input
+                type="email"
+                placeholder="Correo"
+                class="i18n"
+                data-scope="wait"
+                data-i18n-attr="placeholder:email"
+                style="padding: 12px 14px; border-radius: 12px; border: 1px solid color-mix(in oklab, var(--tosca) 60%, transparent); background: #ffffffe6"
+              />
+              <button class="btn btn-primary i18n" data-scope="wait" data-i18n="btn" style="justify-self: start">Apuntarme</button>
+            </form>
+            <p style="opacity: 0.7; margin-top: 6px" class="i18n" data-scope="wait" data-i18n="consent">Al enviar aceptas nuestra política de privacidad. Sólo enviamos noticias de Hotel Colón.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="find">
+        <div class="container grid cols-2">
+          <div class="card pad">
+            <h3 class="i18n" data-scope="map" data-i18n="title">Cómo llegar</h3>
+            <p class="i18n" data-scope="map" data-i18n="text">Calle Colón 11–13, Teulada, Alicante. Entre la estación y el casco antiguo.</p>
+            <a class="i18n" data-scope="map" data-i18n="open" target="_blank" rel="noreferrer" href="https://www.google.com/maps?q=Calle%20Col%C3%B3n%2011-13,%20Teulada">Abrir en Google Maps</a>
+          </div>
+          <div class="card" style="overflow: hidden">
+            <iframe title="mapa" width="100%" height="360" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Calle%20Col%C3%B3n%2011-13,%20Teulada&output=embed"></iframe>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+        <div style="opacity: 0.7; font-size: 14px">
+          ©
+          <span id="year"></span>
+          Hotel Colón • Teulada
+        </div>
+        <div style="opacity: 0.7; font-size: 14px" class="i18n" data-scope="root" data-i18n="tagline">Muchas calles, una experiencia.</div>
+      </div>
+    </footer>
+
+    <div id="lightbox" class="lightbox" onclick="this.classList.remove('show')">
+      <img id="lightbox-img" alt="" />
+    </div>
+
+    <script>
+      const STR = {
+        es: {
+          root: {
+            tagline: "Muchas calles, una experiencia.",
+          },
+          top: {
+            concept: "Concepto",
+            suites: "Suites",
+            dine: "Restaurante",
+            cycling: "Ciclismo",
+            find: "Ubicación",
+            preopening: "Pre‑opening",
+          },
+          hero: {
+            kicker: "Teulada • Calle Colón",
+            lead: "Un boutique “hotel sin muros”: duerme en la Calle Colón, desayuna a la vuelta de la esquina y cena en otra casa. Un barrio, un hotel.",
+            cta1: "Únete a la lista de espera",
+            cta2: "Descubre el concepto",
+          },
+          pillars0: {
+            title: "Muchas calles, un hotel",
+            text: "Dormir y desayunar en la Casa A; cenar en la Casa B — a 1 minuto a pie. Una sola marca, un solo concierge, una experiencia.",
+          },
+          pillars1: {
+            title: "Lujo para ciclistas",
+            text: "Sala de bicicletas segura, zona de lavado y ajuste, desayuno para madrugadores. Rutas por la Marina Alta y salidas a Moraira.",
+          },
+          pillars2: {
+            title: "Histórico y auténtico",
+            text: "Piedra tosca, baldosa de terracota, iroko oscuro y lino tejido. Confort moderno con alma local.",
+          },
+          welcome: {
+            title: "Bienvenidos",
+            text: "Una bienvenida cálida y auténtica en el corazón de Teulada.",
+          },
+          rooms: {
+            title: "Habitaciones de lujo",
+            text: "Habitaciones con balcón y Barrio Rooms silenciosas con ropa de lino. Entrada sin llave, Wi‑Fi rápido y camas excelentes.",
+          },
+          dine: {
+            title: "Restaurante de desayuno",
+            text: "Desayuno en la Casa A, cena en la Casa B. Producto de la Marina Alta, cocina mediterránea y mesa del chef con reserva.",
+            note: "A 1 minuto caminando por el centro histórico.",
+          },
+          cycling: {
+            title: "Cycling & Care",
+            text: "Todo para ciclistas: guardabicis con anclajes seguros, zona de lavado, herramientas, guiado por la zona, recuperación y espresso antes de la ruta.",
+          },
+          wait: {
+            title: "Lista de espera de pre‑apertura",
+            text: "Sé el primero en recibir tarifas de apertura e invitaciones a la soft‑opening.",
+            name: "Nombre",
+            email: "Correo",
+            btn: "Apuntarme",
+            consent: "Al enviar aceptas nuestra política de privacidad. Sólo enviamos noticias de Hotel Colón.",
+          },
+          map: {
+            title: "Cómo llegar",
+            text: "Calle Colón 11–13, Teulada, Alicante. Entre la estación y el casco antiguo.",
+            open: "Abrir en Google Maps",
+          },
+        },
+        en: {
+          root: {
+            tagline: "Many streets, one experience.",
+          },
+          top: {
+            concept: "Concept",
+            suites: "Suites",
+            dine: "Restaurant",
+            cycling: "Cycling",
+            find: "Location",
+            preopening: "Pre‑opening",
+          },
+          hero: {
+            kicker: "Teulada • Historic quarter",
+            lead: "A boutique “hotel without walls”: sleep on Calle Colón, breakfast around the corner and dine in another house. One neighbourhood, one hotel.",
+            cta1: "Join the waitlist",
+            cta2: "Discover the concept",
+          },
+          pillars0: {
+            title: "Many streets, one hotel",
+            text: "Sleep & breakfast in House A; dine in House B — just 1 minute on foot. One brand, one concierge, one experience.",
+          },
+          pillars1: {
+            title: "Cyclist‑friendly luxury",
+            text: "Secure bike room, wash & tune area, early‑rider breakfast. Routes across Marina Alta and coastal rides to Moraira.",
+          },
+          pillars2: {
+            title: "Historic & authentic",
+            text: "Tosca stone, terracotta tiles, dark iroko, woven linen. Modern comfort with local soul.",
+          },
+          welcome: {
+            title: "Welcome",
+            text: "A warm, authentic arrival in the heart of Teulada.",
+          },
+          rooms: {
+            title: "Suites & Apartments",
+            text: "Heritage Suites with balcony and quiet Barrio Rooms with linen blend. Keyless entry, fast Wi‑Fi and excellent beds.",
+          },
+          dine: {
+            title: "Restaurante Colón",
+            text: "Breakfast in House A, dinner in House B. Produce from Marina Alta, Mediterranean cuisine and a chef’s table by reservation.",
+            note: "1 minute’s walk through the historic centre.",
+          },
+          cycling: {
+            title: "Cycling & Care",
+            text: "Everything cyclists need: secure racks, wash area, tools, local guiding, recovery & espresso before the ride.",
+          },
+          wait: {
+            title: "Pre‑opening waitlist",
+            text: "Be first to access opening rates and soft‑opening invites.",
+            name: "Name",
+            email: "Email",
+            btn: "Sign up",
+            consent: "By submitting you agree to our privacy policy. We only send Hotel Colón news.",
+          },
+          map: {
+            title: "Find us",
+            text: "Calle Colón 11–13, Teulada, Alicante. Between the station and the old town.",
+            open: "Open in Google Maps",
+          },
+        },
+        nl: {
+          root: {
+            tagline: "Veel straten, één ervaring.",
+          },
+          top: {
+            concept: "Concept",
+            suites: "Suites",
+            dine: "Restaurant",
+            cycling: "Fietsen",
+            find: "Locatie",
+            preopening: "Pre‑opening",
+          },
+          hero: {
+            kicker: "Teulada • Historisch centrum",
+            lead: "Een boutique “hotel zonder muren”: slapen in de Calle Colón, ontbijt om de hoek en diner in een ander huis. Eén wijk, één hotel.",
+            cta1: "Schrijf je in",
+            cta2: "Ontdek het concept",
+          },
+          pillars0: {
+            title: "Veel straten, één hotel",
+            text: "Slapen & ontbijt in Huis A; diner in Huis B — slechts 1 minuut lopen. Eén merk, één conciërge, één ervaring.",
+          },
+          pillars1: {
+            title: "Luxe voor fietsers",
+            text: "Beveiligde fietsruimte, was & tune hoek, early‑rider ontbijt. Routes door Marina Alta en naar Moraira.",
+          },
+          pillars2: {
+            title: "Historisch & authentiek",
+            text: "Tosca‑steen, terracotta, donker iroko en geweven linnen. Modern comfort met lokale ziel.",
+          },
+          welcome: {
+            title: "Welkom",
+            text: "Welkom in de warme authentieke omgeving.",
+          },
+          rooms: {
+            title: "Luxueuze kamers",
+            text: "Heritage Suites met balkon en stille Barrio Rooms met linnenmix. Keyless entry, snelle Wi‑Fi en uitstekende bedden.",
+          },
+          dine: {
+            title: "Restaurante Colón",
+            text: "Ontbijt in Huis A, diner in Huis B. Lokale producten, mediterrane keuken en chef’s table op reservering.",
+            note: "1 minuut wandelen door het historisch centrum.",
+          },
+          cycling: {
+            title: "Cycling & Care",
+            text: "Alles voor fietsers: veilige rekken, waszone, tools, begeleiding, herstel en espresso voor de rit.",
+          },
+          wait: {
+            title: "Pre‑opening wachtlijst",
+            text: "Krijg als eerste toegang tot openingstarieven en soft‑opening uitnodigingen.",
+            name: "Naam",
+            email: "E‑mail",
+            btn: "Aanmelden",
+            consent: "Door te verzenden ga je akkoord met onze privacyverklaring. We mailen alleen over Hotel Colón.",
+          },
+          map: {
+            title: "Zo vind je ons",
+            text: "Calle Colón 11–13, Teulada, Alicante. Tussen station en oude stad.",
+            open: "Open in Google Maps",
+          },
+        },
+      };
+
+      const setLang = (code) => {
+        const dict = STR[code];
+        document.querySelectorAll(".i18n").forEach((el) => {
+          const scope = el.dataset.scope;
+          const key = el.dataset.i18n;
+          const attrSpec = el.dataset.i18nAttr;
+          let val = dict;
+          if (scope) {
+            scope.split(".").forEach((k) => (val = val?.[k]));
+          }
+          if (key) {
+            val = val?.[key];
+          }
+          if (typeof val === "string") {
+            if (attrSpec) {
+              const [attr, prop] = attrSpec.split(":");
+              let src = dict;
+              const p = (scope || "") + (prop ? "." + prop : "");
+              if (p) {
+                p.split(".")
+                  .filter(Boolean)
+                  .forEach((k) => (src = src?.[k]));
+              }
+              el.setAttribute(attr, src || val);
+            } else {
+              el.textContent = val;
+            }
+          }
+        });
+        document.getElementById("lang-es").classList.toggle("active", code === "es");
+        document.getElementById("lang-en").classList.toggle("active", code === "en");
+        document.getElementById("lang-nl").classList.toggle("active", code === "nl");
+        document.documentElement.lang = code;
+      };
+
+      function openLightbox(fig) {
+        const bg = fig.style.backgroundImage;
+        const m = bg.match(/url\(["']?(.*?)["']?\)/);
+        const src = m ? m[1] : "";
+        const lb = document.getElementById("lightbox");
+        const img = document.getElementById("lightbox-img");
+        img.src = src;
+        lb.classList.add("show");
+      }
+      window.openLightbox = openLightbox;
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+      document.getElementById("lang-es").addEventListener("click", () => setLang("es"));
+      document.getElementById("lang-en").addEventListener("click", () => setLang("en"));
+      document.getElementById("lang-nl").addEventListener("click", () => setLang("nl"));
+      setLang("es");
+    </script>
+  </body>
 </html>
