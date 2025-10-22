@@ -257,7 +257,7 @@
 
       <section class="grid" aria-label="Conceptkaarten">
         <!-- Teaser page link -->
-        <a class="card" href="./Teaser/index.html" aria-label="Ga naar Teaser pagina">
+        <a class="card" href="./Teaser/index.html" target="_blank" aria-label="Ga naar Teaser pagina">
           <div
             class="card__media"
             style="
@@ -278,7 +278,7 @@
         </a>
 
         <!-- Slider show link -->
-        <a class="card" href="./Sliders/index.html" aria-label="Ga naar Slider show">
+        <a class="card" href="./Sliders/index.html" target="_blank" aria-label="Ga naar Slider show">
           <div
             class="card__media"
             style="
@@ -354,7 +354,7 @@
       };
 
       const applyLang = (lang) => {
-        const dict = i18n[lang] || i18n.nl;
+        const dict = i18n[lang] || i18n.es;
         document.documentElement.lang = lang;
         document.querySelectorAll("[data-i18n]").forEach((el) => {
           const key = el.getAttribute("data-i18n");
